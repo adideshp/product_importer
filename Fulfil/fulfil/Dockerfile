@@ -5,6 +5,9 @@ FROM python:3.6
 RUN mkdir -p /opt/services/djangoapp/src
 WORKDIR /opt/services/djangoapp/src
 
+COPY django_entrypoint.sh /django_entrypoint.sh
+RUN chmod +x /django_entrypoint.sh
+
 # install our two dependencies
 RUN pip install gunicorn django psycopg2 djangorestframework django-filter requests celery channels django-eventstream
 

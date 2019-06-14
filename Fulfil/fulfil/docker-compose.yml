@@ -4,6 +4,7 @@ services:
   djangoapp:
     build: .
     image: &djangoapp djangoapp
+    entrypoint: /django_entrypoint.sh
     env_file:
       - config/worker/worker_env
     volumes:
@@ -12,9 +13,9 @@ services:
       - ./media:/opt/services/media 
     networks:
       - nginx_network
-      - database1_network  # <-- connect to the bridge
+      - database1_network 
       - broker_network
-    depends_on:  # <-- wait for db to be "ready" before starting the app
+    depends_on:  
       - database1
       - broker
 
@@ -31,11 +32,11 @@ services:
     networks:
       - nginx_network
 
-  database1:  # <-- IMPORTANT: same name as in DATABASES setting, otherwise Django won't find the database!
+  database1: 
     image: postgres:10
-    env_file:  # <-- we use the previously defined values
+    env_file:  
       - config/db/fulfildb_env
-    networks:  # <-- connect to the bridge
+    networks:  
       - database1_network
     volumes:
       - ./database:/var/lib/postgresql/data
@@ -66,7 +67,7 @@ services:
 networks: 
   nginx_network:
     driver: bridge
-  database1_network:  # <-- add the bridge
+  database1_network: 
     driver: bridge
   broker_network:
     driver: bridge

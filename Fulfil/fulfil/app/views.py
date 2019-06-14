@@ -37,6 +37,11 @@ def home(request):
     documents = Document.objects.all()
     return render(request, 'app/home.html', { 'documents': documents })
 
+
+def view_products(request):
+    products = Product.objects.all()
+    return render(request, 'app/products.html',  { 'products': products })
+
 class ProductViewSet(viewsets.ModelViewSet):
     """
     API endpoint that allows users to be viewed or edited.
@@ -44,3 +49,4 @@ class ProductViewSet(viewsets.ModelViewSet):
     queryset = Product.objects.all()
     serializer_class = ProductSerializer
     filterset_fields = ('status')
+    search_fields = ('sku', 'name')

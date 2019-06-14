@@ -3,13 +3,14 @@ from .models import Document
 from .forms import DocumentForm
 from worker.tasks import upload_csv_to_db
 from django.core.files.storage import FileSystemStorage
+from django.http import HttpResponse
+from django.views.decorators.csrf import csrf_exempt
 
 def document_upload(request):
     if request.method == 'POST':
         form = DocumentForm(request.POST, request.FILES)
         if form.is_valid():
             form.save()
-            print("==============ADITYA==============")
             upload_csv_to_db.delay(form.instance.document.url, form.instance.id)
             return redirect('home')
     else:
@@ -19,17 +20,15 @@ def document_upload(request):
     })
 
 
-def simple_upload(request):
-    if request.method == 'POST' and request.FILES['myfile']:
-        myfile = request.FILES['myfile']
-        fs = FileSystemStorage()
-        filename = fs.save(myfile.name, myfile)
-        uploaded_file_url = fs.url(filename)
-        return render(request, 'app/document_upload.html', {
-            'uploaded_file_url': uploaded_file_url
-        })
-    return render(request, 'app/document_upload.html')
-
+@csrf_exempt
+def push_sse(request):
+    from django_eventstream import send_event
+    if request.method == 'POST':
+        sku = request.POST["sku"]
+        curr = request.POST["curr"]
+        total = request.POST["total"]
+        send_event('test', 'message', {'sku': str(sku), 'curr': str(curr), 'total': str(total)})
+    return HttpResponse({"status": "Event Sent"}, content_type="application/json")
 
 def home(request):
     documents = Document.objects.all()

@@ -4,6 +4,8 @@ services:
   djangoapp:
     build: .
     image: &djangoapp djangoapp
+    env_file:
+      - config/worker/worker_env
     volumes:
       - .:/opt/services/djangoapp/src
       - ./static:/opt/services/static
@@ -38,20 +40,6 @@ services:
     volumes:
       - ./database:/var/lib/postgresql/data
 
-  worker:
-    build: .
-    image: *djangoapp
-    restart: "no"
-    env_file:
-      - config/worker/worker_env
-    command: ["celery", "worker", "--app=worker.worker.app", "--concurrency=1", "--hostname=worker@%h", "--loglevel=INFO"]
-    volumes:
-      - .:/opt/services/djangoapp/src
-    depends_on:
-      - broker
-    networks: 
-      - broker_network
-      - database1_network
     
   flower:
     image: zoomeranalytics/flower:0.9.1-4.0.2

@@ -25,7 +25,9 @@ from app import views
 urlpatterns = [
     url(r'^$', views.home, name='home'),
     url(r'^upload/$', views.document_upload, name='document_upload'),
-    url(r'^uploads/simple/$', views.simple_upload, name='simple_upload'),
+    url(r'^sse/post_event$', views.push_sse, name='push_sse'),
+    #url(r'^uploads/simple/$', views.simple_upload, name='simple_upload'),
+    #url(r'^adi/$', views.server_sent_events, name='server_sent_events'),
     url(r'^admin/', admin.site.urls),
 ]
 

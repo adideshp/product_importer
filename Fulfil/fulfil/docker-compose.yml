@@ -4,7 +4,6 @@ services:
   djangoapp:
     build: .
     image: &djangoapp djangoapp
-    entrypoint: /django_entrypoint.sh
     env_file:
       - config/worker/worker_env
     volumes:

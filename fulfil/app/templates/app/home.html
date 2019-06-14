@@ -29,7 +29,7 @@
   <script src="http://code.jquery.com/jquery-latest.js"></script>
   <script>
   if (!!window.EventSource) {
-    var source = new EventSource('http://localhost:8000/events/');
+    var source = new EventSource('events/');
     source.onmessage = function(e) {
       data = JSON.parse(e.data);
       $("#pgbar").css("width", (parseInt(data["curr"],10) / parseInt(data["total"],10)) *100 + "%")

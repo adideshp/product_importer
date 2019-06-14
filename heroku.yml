@@ -3,4 +3,4 @@ build:
     web: fulfil/Dockerfile
 
 run:
-  web: gunicorn --chdir fulfil fulfil.wsgi:application
+  web: daphne --root-path fulfil fulfil.wsgi:application

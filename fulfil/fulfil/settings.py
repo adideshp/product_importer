@@ -25,7 +25,7 @@ DATA_UPLOAD_MAX_MEMORY_SIZE = 100000000*1024*1024
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ["0.0.0.0", "localhost"]
+ALLOWED_HOSTS = ["0.0.0.0", "localhost", "fulfil-acme-product-importer.herokuapp.com"]
 ASGI_APPLICATION = 'fulfil.routing.application'
 
 # Application definition

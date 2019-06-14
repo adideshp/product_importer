@@ -2,10 +2,16 @@ from django.db import models
 from django.db.models.signals import post_save
 from django.dispatch import receiver
 
+STATUS = (
+    ("COMPLETED", "Completed"),
+    ("INPROGRESS", "In Progress"),
+)
+
 class Document(models.Model):
     document = models.FileField(upload_to='documents/%Y/%m/%d/')
     created_at = models.DateTimeField(auto_now_add=True)
     elements = models.IntegerField(blank=False, default=0)
+    status = models.CharField(choices=STATUS, max_length=20, blank=False, default="INPROGRESS")
 
 STATUS = (
     ("ACTIVE", "Active"),

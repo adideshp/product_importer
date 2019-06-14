@@ -27,6 +27,8 @@ def upload_csv_to_db(location, document_id):
                 line +=1
             else:
                 product,status = Product.objects.update_or_create(sku=row[1].lower(), defaults={ 'name':row[0], 'description':row[2], 'document':doc})
-                r = requests.post("http://0.0.0.0:8000/sse/post_event", data={'sku': str(product.sku), 'curr': str(line), 'total': str(total)})
+                r = requests.post("http://0.0.0.0:8000/sse/post_event", data={'sku': str(product.sku), 'curr': str(line), 'total': str(total), 'doc_id': str(doc.id)})
                 print(r.status_code, r.reason)
                 line +=1
+    doc.status = "COMPLETED"
+    doc.save()

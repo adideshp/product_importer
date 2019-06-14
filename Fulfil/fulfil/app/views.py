@@ -27,7 +27,8 @@ def push_sse(request):
         sku = request.POST["sku"]
         curr = request.POST["curr"]
         total = request.POST["total"]
-        send_event('test', 'message', {'sku': str(sku), 'curr': str(curr), 'total': str(total)})
+        doc_id = request.POST["doc_id"]
+        send_event('test', 'message', {'sku': str(sku), 'curr': str(curr), 'total': str(total), 'doc_id': str(doc_id)})
     return HttpResponse({"status": "Event Sent"}, content_type="application/json")
 
 def home(request):

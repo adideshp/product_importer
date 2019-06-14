@@ -52,6 +52,14 @@ def view_products(request):
     return render(request, 'app/products.html',  { 'filter': product_filter })
 
 
+def add_new_product(request):
+    form = ProductForm(request.POST)
+    if form.is_valid():
+        form.save()
+        return redirect('home')
+    return render(request, 'app/product_update.html', {'form': form})  
+
+
 def update_products_view(request, sku):
     product = Product.objects.get(sku=sku)
     form = ProductForm(request.POST or None, instance=product)

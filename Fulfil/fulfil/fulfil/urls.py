@@ -33,7 +33,7 @@ urlpatterns = [
     url(r'^api/v1/', include(router.urls)),
     url(r'^products/$', views.view_products, name='view_products'), 
     url(r'^products/update/(?P<sku>\w+[-\w+]*)/$', views.update_products_view, name='update_products_view'), 
-    #url(r'^products/update/$', views.update_product, name='update_product'), 
+    url(r'^products/add/$', views.add_new_product, name='add_new_product'), 
     url(r'^delete_all/$', views.delete_all, name='delete_all'), 
 
 ]

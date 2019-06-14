@@ -7,6 +7,8 @@ from django.http import HttpResponse
 from django.views.decorators.csrf import csrf_exempt
 from rest_framework import viewsets
 from app.serializers import ProductSerializer
+from .filters import ProductFilter
+
 
 def document_upload(request):
     if request.method == 'POST':
@@ -39,8 +41,11 @@ def home(request):
 
 
 def view_products(request):
-    products = Product.objects.all()
-    return render(request, 'app/products.html',  { 'products': products })
+    product_list = Product.objects.all()
+    product_filter = ProductFilter(request.GET, queryset=product_list)
+    return render(request, 'app/products.html',  { 'filter': product_filter })
+
+
 
 class ProductViewSet(viewsets.ModelViewSet):
     """

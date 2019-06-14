@@ -20,6 +20,29 @@
       </ul>
     </div>
   </nav>
+  <div class="row" style="margin-top: 50px;">
+      <div class="col-md-2">
+        </div>
+      <div class="col-md-4">      
+          <form method="get">
+              {{ filter.form.as_p }}
+              <button type="submit">Search</button>
+            </form>
+      </div>
+      <div class="col-md-4">      
+        
+      </div>
+      <div class="col-md-2">
+      </div>
+  </div>
+  <div class="row" style="margin-top: 10px;">
+      <div class="col-md-3">
+      </div>
+      <div class="col-md-6">
+      </div>
+      <div class="col-md-3">
+      </div>
+  </div>
   <div class="row">
         <div class="col-md-2">
         </div>
@@ -33,7 +56,7 @@
                   <th scope="col">Status</th>
                 </tr>
               </thead>
-                {% for obj in products %}
+                {% for obj in filter.qs %}
                     <tr>
                         <th scope="row">{{ obj.sku }}</a></th>
                         <td>{{ obj.name }}</td>

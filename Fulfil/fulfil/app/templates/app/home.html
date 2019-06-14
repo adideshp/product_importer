@@ -26,8 +26,8 @@
     var source = new EventSource('http://localhost:8000/events/');
     source.onmessage = function(e) {
       data = JSON.parse(e.data);
-      $("#pgbar").css("width", parseInt(data["curr"],10) / parseInt(data["total"],10) + "%")
-      .attr("aria-valuenow", parseInt(data["curr"],10) / parseInt(data["total"],10))
+      $("#pgbar").css("width", (parseInt(data["curr"],10) / parseInt(data["total"],10)) *100 + "%")
+      .attr("aria-valuenow", (parseInt(data["curr"],10) / parseInt(data["total"],10)) *100)
       .text(parseInt(data["curr"],10) + "/"  + parseInt(data["total"],10) + "Complete");
     }
   }

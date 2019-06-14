@@ -15,20 +15,22 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.conf.urls import url
+from django.urls import include
 from django.conf import settings
 from django.conf.urls.static import static
-
+from rest_framework import routers
 
 from app import views
+router = routers.DefaultRouter()
 
+router.register(r'products', views.ProductViewSet)
 
 urlpatterns = [
     url(r'^$', views.home, name='home'),
     url(r'^upload/$', views.document_upload, name='document_upload'),
     url(r'^sse/post_event$', views.push_sse, name='push_sse'),
-    #url(r'^uploads/simple/$', views.simple_upload, name='simple_upload'),
-    #url(r'^adi/$', views.server_sent_events, name='server_sent_events'),
     url(r'^admin/', admin.site.urls),
+    url(r'^api/v1/', include(router.urls)),
 ]
 
 if settings.DEBUG:

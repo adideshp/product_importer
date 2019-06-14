@@ -3,4 +3,4 @@ build:
     web: Fulfil/fulfil/Dockerfile
 
 run:
-  web: gunicorn --chdir Fulfil/fulfil fulfil.wsgi:application
+  web: gunicorn --chdir fulfil fulfil.wsgi:application

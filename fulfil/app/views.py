@@ -26,7 +26,8 @@ def document_upload(request):
 
 def delete_all(request):
     delete_all_products.delay()
-    return render(request, 'app/home.html', { 'documents': [] })
+    documents = Document.objects.all()
+    return render(request, 'app/home.html', { 'documents': documents })
     
 
 

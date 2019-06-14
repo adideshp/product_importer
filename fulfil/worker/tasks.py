@@ -7,8 +7,8 @@ import requests
 
 @app.task
 def delete_all_products():
-    from app.models import Document
-    Document.objects.all().delete()
+    from app.models import Product
+    Product.objects.all().delete()
 
 @app.task
 def upload_csv_to_db(location, document_id):

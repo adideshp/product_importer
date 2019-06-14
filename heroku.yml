@@ -1,6 +1,6 @@
 build:
   docker:
-    web: fulfil/Dockerfile
+    web: Fulfil/fulfil/Dockerfile
 
 run:
   web: daphne fulfil.asgi:application

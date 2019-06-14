@@ -1,6 +1,3 @@
 build:
   docker:
     web: fulfil/Dockerfile
-
-run:
-  web: gunicorn --chdir fulfil fulfil.wsgi:application

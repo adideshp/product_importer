@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect
 from .models import Document, Product
 from .forms import DocumentForm
-from worker.tasks import upload_csv_to_db
+from worker.tasks import upload_csv_to_db, delete_all_products
 from django.core.files.storage import FileSystemStorage
 from django.http import HttpResponse
 from django.views.decorators.csrf import csrf_exempt
@@ -22,6 +22,12 @@ def document_upload(request):
     return render(request, 'app/document_upload.html', {
         'form': form
     })
+
+
+def delete_all(request):
+    delete_all_products.delay()
+    return render(request, 'app/home.html', { 'documents': [] })
+    
 
 
 @csrf_exempt

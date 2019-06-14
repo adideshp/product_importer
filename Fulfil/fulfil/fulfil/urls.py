@@ -31,7 +31,8 @@ urlpatterns = [
     url(r'^sse/post_event$', views.push_sse, name='push_sse'),
     url(r'^admin/', admin.site.urls),
     url(r'^api/v1/', include(router.urls)),
-    url(r'^products/$', views.view_products, name='view_products'),  
+    url(r'^products/$', views.view_products, name='view_products'), 
+    url(r'^delete_all/$', views.delete_all, name='delete_all'), 
 ]
 
 if settings.DEBUG:

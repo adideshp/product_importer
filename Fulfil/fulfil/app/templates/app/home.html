@@ -17,6 +17,9 @@
         <li class="nav-item">
           <a class="nav-link" href="{% url 'document_upload' %}">Upload a Products file</a>
         </li>
+        <li class="nav-item">
+            <a class="nav-link" href="{% url 'delete_all' %}">Delete all Products</a>
+        </li>
       </ul>
     </div>
   </nav>
@@ -29,6 +32,12 @@
       $("#pgbar").css("width", (parseInt(data["curr"],10) / parseInt(data["total"],10)) *100 + "%")
       .attr("aria-valuenow", (parseInt(data["curr"],10) / parseInt(data["total"],10)) *100)
       .text(parseInt(data["curr"],10) + "/"  + parseInt(data["total"],10) + "Complete");
+
+      if (parseInt(data["curr"],10)+1 == parseInt(data["total"],10))  {
+        $("#pgbar").css("width", 100 + "%")
+      .attr("aria-valuenow", 100)
+      .text("Complete");
+      }
     }
   }
   </script>
@@ -53,7 +62,7 @@
                   <td><a href="{{ obj.document.url }}">{{ obj.document.name }}</a></td>
                   <td>{{ obj.created_at }}</td>
                   <td>{{ obj.elements }}</td>
-                  {% if forloop.last and obj.status != "Completed" %}
+                  {% if forloop.last and obj.status != "COMPLETED" %}
                   <td>
                     <div class="progress">
                       <div class="progress-bar progress-bar-striped progress-bar-animated bg-success" role="progressbar" id= "pgbar" style="width: 10%" aria-valuenow="10" aria-valuemin="0" aria-valuemax={{ obj.elements }}></div>

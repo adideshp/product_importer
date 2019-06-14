@@ -4,6 +4,12 @@ import os.path
 from worker.worker import app
 import requests
 
+
+@app.task
+def delete_all_products():
+    from app.models import Document
+    Document.objects.all().delete()
+
 @app.task
 def upload_csv_to_db(location, document_id):
     from app.models import Document, Product

@@ -54,6 +54,8 @@
                   <th scope="col">Name</th>
                   <th scope="col">Description</th>
                   <th scope="col">Status</th>
+                  <th scope="col">Update</th>
+
                 </tr>
               </thead>
                 {% for obj in filter.qs %}
@@ -62,6 +64,9 @@
                         <td>{{ obj.name }}</td>
                         <td>{{ obj.description }}</td>
                         <td>{{ obj.status }}</td>
+                        <td>
+                        <a class="btn btn-primary" href="/products/update/{{ obj.sku }}/" role="button">Update</a>
+                        </td>
                     </tr>
                 {% endfor %}
               <tbody>
